@@ -12,29 +12,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Expanded(child: Container(
-            decoration: BoxDecoration(
-              color: Colors.black
-            ),
-            child: Text("156"))),
-          Expanded(
-            flex: 2,
-            child: GridView.builder(
-              itemCount: 16,
-              gridDelegate:
-                  SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4),
-              itemBuilder: (context, index) {
-                return ElevatedButton(
-                    onPressed: () {}, child: Text(index.toString()));
-              },
-            ),
-          )
-        ],
-      ),
-    );
+    return Scaffold();
   }
 }
