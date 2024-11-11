@@ -15,17 +15,20 @@ class Buttons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      child: ClipRRect(
-          borderRadius: BorderRadius.circular(50.0),
-          child: Container(
-            color: buttonColor,
-            child: Center(
-                child: Text(
-              buttonText,
-              style: TextStyle(color: textColor),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: GestureDetector(
+        child: ClipRRect(
+            borderRadius: BorderRadius.circular(50.0),
+            child: Container(
+              color: buttonColor,
+              child: Center(
+                  child: Text(
+                buttonText,
+                style: TextStyle(color: textColor),
+              )),
             )),
-          )),
+      ),
     );
   }
 }
