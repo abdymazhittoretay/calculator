@@ -6,20 +6,23 @@ class Buttons extends StatelessWidget {
   final Color buttonColor;
   final Color textColor;
   final String buttonText;
+  final void Function()? onTap;
 
   const Buttons(
       {super.key,
       required this.buttonColor,
       required this.textColor,
-      required this.buttonText});
+      required this.buttonText,
+      required this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: GestureDetector(
+        onTap: onTap,
         child: ClipRRect(
-            borderRadius: BorderRadius.circular(50.0),
+            borderRadius: BorderRadius.circular(20.0),
             child: Container(
               color: buttonColor,
               child: Center(

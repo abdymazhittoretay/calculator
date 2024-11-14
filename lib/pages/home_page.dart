@@ -34,36 +34,87 @@ class _HomePageState extends State<HomePage> {
     "=",
   ];
 
+  var userQuestion = "";
+  var userAnswer = "";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
       body: Column(
         children: [
-          Expanded(child: Container()),
+          Expanded(
+              child: Container(
+            padding: EdgeInsets.only(right: 8.0, bottom: 15.0),
+            alignment: Alignment.bottomRight,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Text(userQuestion,
+                    style: TextStyle(color: Colors.grey, fontSize: 36)),
+                SizedBox(
+                  height: 15,
+                ),
+                Text(
+                  userAnswer,
+                  style: TextStyle(color: Colors.white, fontSize: 36),
+                ),
+              ],
+            ),
+          )),
           Expanded(
               flex: 2,
               child: Container(
                   child: GridView.builder(
+                      padding: EdgeInsets.zero,
                       physics: NeverScrollableScrollPhysics(),
                       itemCount: buttons.length,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 4),
                       itemBuilder: (context, index) {
-                        if (index < 3) {
+                        if (index == 0) {
                           return Buttons(
-                              buttonColor: Colors.grey.shade800,
-                              textColor: Colors.white,
-                              buttonText: buttons[index]);
+                            buttonColor: Colors.grey.shade800,
+                            textColor: Colors.white,
+                            buttonText: buttons[index],
+                            onTap: () {
+                              setState(() {
+                                userQuestion = "";
+                              });
+                            },
+                          );
+                        } else if (index == 1) {
+                          return Buttons(
+                            buttonColor: Colors.grey.shade800,
+                            textColor: Colors.white,
+                            buttonText: buttons[index],
+                            onTap: () {
+                              setState(() {
+                                userQuestion = userQuestion.substring(
+                                    0,
+                                    userQuestion.isNotEmpty
+                                        ? userQuestion.length - 1
+                                        : 0);
+                              });
+                            },
+                          );
                         } else {
                           return Buttons(
                               buttonColor: isRightSideButtons(buttons[index])
                                   ? Colors.orange
-                                  : Colors.grey.shade900,
+                                  : buttons[index] == "%"
+                                      ? Colors.grey.shade800
+                                      : Colors.grey.shade900,
                               textColor: Colors.white,
-                              buttonText: buttons[index]);
+                              buttonText: buttons[index],
+                              onTap: () {
+                                setState(() {
+                                  userQuestion += buttons[index];
+                                });
+                              });
                         }
-                      })))
+                      }))),
         ],
       ),
     );
