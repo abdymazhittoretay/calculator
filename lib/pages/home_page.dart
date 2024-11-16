@@ -2,6 +2,7 @@
 
 import 'package:calculator/pages/buttons.dart';
 import 'package:flutter/material.dart';
+import 'package:math_expressions/math_expressions.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -99,6 +100,17 @@ class _HomePageState extends State<HomePage> {
                               });
                             },
                           );
+                        } else if (index == buttons.length - 1) {
+                          return Buttons(
+                            buttonColor: Colors.orange,
+                            textColor: Colors.white,
+                            buttonText: buttons[index],
+                            onTap: () {
+                              setState(() {
+                                equalPressed();
+                              });
+                            },
+                          );
                         } else {
                           return Buttons(
                               buttonColor: isRightSideButtons(buttons[index])
@@ -130,5 +142,17 @@ class _HomePageState extends State<HomePage> {
       return true;
     }
     return false;
+  }
+
+  void equalPressed() {
+    String finalUserQuestion = userQuestion;
+    finalUserQuestion = finalUserQuestion.replaceAll("x", "*");
+
+    Parser p = Parser();
+    Expression exp = p.parse(finalUserQuestion);
+    ContextModel cm = ContextModel();
+    double eval = exp.evaluate(EvaluationType.REAL, cm);
+
+    userAnswer = eval.toString();
   }
 }
