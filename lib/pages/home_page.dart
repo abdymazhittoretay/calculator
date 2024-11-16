@@ -66,67 +66,68 @@ class _HomePageState extends State<HomePage> {
           )),
           Expanded(
               flex: 2,
-              child: Container(
-                  child: GridView.builder(
-                      padding: EdgeInsets.zero,
-                      physics: NeverScrollableScrollPhysics(),
-                      itemCount: buttons.length,
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 4),
-                      itemBuilder: (context, index) {
-                        if (index == 0) {
-                          return Buttons(
-                            buttonColor: Colors.grey.shade800,
-                            textColor: Colors.white,
-                            buttonText: buttons[index],
-                            onTap: () {
-                              setState(() {
-                                userQuestion = "";
-                              });
-                            },
-                          );
-                        } else if (index == 1) {
-                          return Buttons(
-                            buttonColor: Colors.grey.shade800,
-                            textColor: Colors.white,
-                            buttonText: buttons[index],
-                            onTap: () {
-                              setState(() {
-                                userQuestion = userQuestion.substring(
-                                    0,
-                                    userQuestion.isNotEmpty
-                                        ? userQuestion.length - 1
-                                        : 0);
-                              });
-                            },
-                          );
-                        } else if (index == buttons.length - 1) {
-                          return Buttons(
-                            buttonColor: Colors.orange,
-                            textColor: Colors.white,
-                            buttonText: buttons[index],
-                            onTap: () {
-                              setState(() {
-                                equalPressed();
-                              });
-                            },
-                          );
-                        } else {
-                          return Buttons(
-                              buttonColor: isRightSideButtons(buttons[index])
-                                  ? Colors.orange
-                                  : buttons[index] == "%"
-                                      ? Colors.grey.shade800
-                                      : Colors.grey.shade900,
-                              textColor: Colors.white,
-                              buttonText: buttons[index],
-                              onTap: () {
-                                setState(() {
-                                  userQuestion += buttons[index];
-                                });
-                              });
-                        }
-                      }))),
+              child: GridView.builder(
+                  padding: EdgeInsets.zero,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: buttons.length,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 4),
+                  itemBuilder: (context, index) {
+                    if (index == 0) {
+                      return Buttons(
+                        buttonColor: Colors.grey.shade800,
+                        textColor: Colors.white,
+                        buttonText: buttons[index],
+                        onTap: () {
+                          setState(() {
+                            userAnswer = "";
+                            userQuestion = "";
+                          });
+                        },
+                      );
+                    } else if (index == 1) {
+                      return Buttons(
+                        buttonColor: Colors.grey.shade800,
+                        textColor: Colors.white,
+                        buttonText: buttons[index],
+                        onTap: () {
+                          setState(() {
+                            userQuestion = "";
+                            userAnswer = userAnswer.substring(
+                                0,
+                                userAnswer.isNotEmpty
+                                    ? userAnswer.length - 1
+                                    : 0);
+                          });
+                        },
+                      );
+                    } else if (index == buttons.length - 1) {
+                      return Buttons(
+                        buttonColor: Colors.orange,
+                        textColor: Colors.white,
+                        buttonText: buttons[index],
+                        onTap: () {
+                          setState(() {
+                            equalPressed();
+                          });
+                        },
+                      );
+                    } else {
+                      return Buttons(
+                          buttonColor: isRightSideButtons(buttons[index])
+                              ? Colors.orange
+                              : buttons[index] == "%"
+                                  ? Colors.grey.shade800
+                                  : Colors.grey.shade900,
+                          textColor: Colors.white,
+                          buttonText: buttons[index],
+                          onTap: () {
+                            setState(() {
+                              userAnswer += buttons[index];
+                            });
+                          });
+                    }
+                  })),
         ],
       ),
     );
@@ -145,7 +146,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   void equalPressed() {
-    String finalUserQuestion = userQuestion;
+    String finalUserQuestion = userAnswer;
     finalUserQuestion = finalUserQuestion.replaceAll("x", "*");
 
     Parser p = Parser();
@@ -153,6 +154,7 @@ class _HomePageState extends State<HomePage> {
     ContextModel cm = ContextModel();
     double eval = exp.evaluate(EvaluationType.REAL, cm);
 
+    userQuestion = userAnswer;
     userAnswer = eval.toString();
   }
 }
