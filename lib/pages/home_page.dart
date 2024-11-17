@@ -101,6 +101,7 @@ class _HomePageState extends State<HomePage> {
                           });
                         },
                       );
+                      // else if(isCalc)
                     } else if (index == buttons.length - 1) {
                       return Buttons(
                         buttonColor: Colors.orange,
@@ -123,7 +124,18 @@ class _HomePageState extends State<HomePage> {
                           buttonText: buttons[index],
                           onTap: () {
                             setState(() {
-                              userAnswer += buttons[index];
+                              // Replaces last operator
+                              if (isCalculation(buttons[index]) &&
+                                  isCalculation(
+                                      userAnswer[userAnswer.length - 1])) {
+                                userAnswer = userAnswer.substring(
+                                    0, userAnswer.length - 1);
+                                userAnswer += buttons[index];
+                              } else if (isCalculation(buttons[index])) {
+                                userAnswer += buttons[index];
+                              } else {
+                                userAnswer += buttons[index];
+                              }
                             });
                           });
                     }
@@ -140,6 +152,16 @@ class _HomePageState extends State<HomePage> {
         buttonText == "-" ||
         buttonText == "+" ||
         buttonText == "=") {
+      return true;
+    }
+    return false;
+  }
+
+  bool isCalculation(String buttonText) {
+    if (buttonText == "/" ||
+        buttonText == "x" ||
+        buttonText == "-" ||
+        buttonText == "+") {
       return true;
     }
     return false;
