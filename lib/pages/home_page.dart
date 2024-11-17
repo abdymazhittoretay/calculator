@@ -177,6 +177,12 @@ class _HomePageState extends State<HomePage> {
     double eval = exp.evaluate(EvaluationType.REAL, cm);
 
     userQuestion = userAnswer;
-    userAnswer = eval.toString();
+    if ((eval % 1) == 0) {
+      userAnswer = eval.toInt().toString();
+    } else if ((eval % 1) != 0 && eval.toString().length > 7) {
+      userAnswer = eval.toStringAsFixed(7);
+    } else {
+      userAnswer = eval.toStringAsFixed(7);
+    }
   }
 }
