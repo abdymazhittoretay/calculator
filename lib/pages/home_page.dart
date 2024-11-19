@@ -52,14 +52,24 @@ class _HomePageState extends State<HomePage> {
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Text(userQuestion,
-                    style: TextStyle(color: Colors.grey, fontSize: 36)),
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  reverse: true,
+                  child: Text(userQuestion,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(color: Colors.grey, fontSize: 36)),
+                ),
                 SizedBox(
                   height: 15,
                 ),
-                Text(
-                  userAnswer,
-                  style: TextStyle(color: Colors.white, fontSize: 36),
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  reverse: true,
+                  child: Text(
+                    userAnswer,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(color: Colors.white, fontSize: 36),
+                  ),
                 ),
               ],
             ),
