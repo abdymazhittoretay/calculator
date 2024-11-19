@@ -135,14 +135,15 @@ class _HomePageState extends State<HomePage> {
                           buttonText: buttons[index],
                           onTap: () {
                             setState(() {
-                              // Replaces last operator
-                              if (userAnswer.isNotEmpty && isCalculation(buttons[index]) &&
+                              if (userAnswer.isNotEmpty &&
+                                  isCalculation(buttons[index]) &&
                                   isCalculation(
                                       userAnswer[userAnswer.length - 1])) {
                                 userAnswer = userAnswer.substring(
                                     0, userAnswer.length - 1);
                                 userAnswer += buttons[index];
-                              } else if (userAnswer.isNotEmpty && isCalculation(buttons[index])) {
+                              } else if (userAnswer.isNotEmpty &&
+                                  isCalculation(buttons[index])) {
                                 userAnswer += buttons[index];
                               } else {
                                 userAnswer += buttons[index];
@@ -179,6 +180,13 @@ class _HomePageState extends State<HomePage> {
   }
 
   void equalPressed() {
+    userQuestion = userAnswer;
+
+    if (userAnswer[userAnswer.length - 1] == "%") {
+      userAnswer = userAnswer.substring(0, userAnswer.length - 1);
+      userAnswer += "/100";
+    }
+
     String finalUserQuestion = userAnswer;
     finalUserQuestion = finalUserQuestion.replaceAll("x", "*");
 
@@ -187,7 +195,6 @@ class _HomePageState extends State<HomePage> {
     ContextModel cm = ContextModel();
     double eval = exp.evaluate(EvaluationType.REAL, cm);
 
-    userQuestion = userAnswer;
     if ((eval % 1) == 0) {
       userAnswer = eval.toInt().toString();
     } else if ((eval % 1) != 0 && eval.toString().length > 9) {
