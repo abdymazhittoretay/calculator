@@ -113,6 +113,17 @@ class _HomePageState extends State<HomePage> {
                           });
                         },
                       );
+                    } else if (index == buttons.length - 4) {
+                      return Buttons(
+                        buttonColor: Colors.grey.shade900,
+                        textColor: Colors.white,
+                        buttonText: buttons[index],
+                        onTap: () {
+                          setState(() {
+                            userAnswer += 'x(-1)';
+                          });
+                        },
+                      );
                     } else {
                       return Buttons(
                           buttonColor: isRightSideButtons(buttons[index])
@@ -125,13 +136,13 @@ class _HomePageState extends State<HomePage> {
                           onTap: () {
                             setState(() {
                               // Replaces last operator
-                              if (isCalculation(buttons[index]) &&
+                              if (userAnswer.isNotEmpty && isCalculation(buttons[index]) &&
                                   isCalculation(
                                       userAnswer[userAnswer.length - 1])) {
                                 userAnswer = userAnswer.substring(
                                     0, userAnswer.length - 1);
                                 userAnswer += buttons[index];
-                              } else if (isCalculation(buttons[index])) {
+                              } else if (userAnswer.isNotEmpty && isCalculation(buttons[index])) {
                                 userAnswer += buttons[index];
                               } else {
                                 userAnswer += buttons[index];
@@ -179,10 +190,10 @@ class _HomePageState extends State<HomePage> {
     userQuestion = userAnswer;
     if ((eval % 1) == 0) {
       userAnswer = eval.toInt().toString();
-    } else if ((eval % 1) != 0 && eval.toString().length > 7) {
-      userAnswer = eval.toStringAsFixed(7);
+    } else if ((eval % 1) != 0 && eval.toString().length > 9) {
+      userAnswer = eval.toStringAsFixed(9);
     } else {
-      userAnswer = eval.toStringAsFixed(7);
+      userAnswer = eval.toString();
     }
   }
 }
