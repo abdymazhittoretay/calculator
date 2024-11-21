@@ -46,7 +46,7 @@ class _HomePageState extends State<HomePage> {
         children: [
           Expanded(
               child: Container(
-            padding: EdgeInsets.only(right: 8.0, bottom: 15.0),
+            padding: EdgeInsets.only(right: 8.0, bottom: 15.0, left: 8.0),
             alignment: Alignment.bottomRight,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
